@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Tracker</title>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Manifest Development-->
+    <!-- <link rel="manifest" href="manifest.json"> -->
+    <!-- Manifest Production--> 
+    <link rel="manifest" href="/fitness-tracker/manifest.json">
+
+    <!-- Add base to handle relative paths Development -->
+    <!-- <base href="/"> -->
+    <!-- Add base to handle relative paths -->
+    <base href="/fitness-tracker/">
+
+</head>
+<body>
+    <div class="app-container">
+        <!-- Calorie Goal Section -->
+        <div class="header">
+            <h3>Calorie Goal</h3>
+            <div class="balance" id="calorie-goal" ondblclick="editCalorieGoal()">6500</div>
+        </div>
+
+        <!-- Slider and Amount container -->
+        <div class="amount-container">
+            <input type="text" id="slider-amount" placeholder="Enter amount" autocomplete="off">
+        </div>
+
+        <!-- Slider for calorie amount selection -->
+        <div class="slider-container">
+            <span id="min-value">25.00</span>
+            <input type="range" id="slider" min="25" max="500" value="250" oninput="updateSliderAmount()">
+            <span id="max-value">500.00</span>
+        </div>
+
+        <!-- Add Calories Button -->
+        <button id="add-calories-button" onclick="addCalories()">Pay Up!</button>
+
+        <!-- Total Calories and Remaining Calories -->
+        <div class="calorie-status">
+            <h3>Total Damage</h3>
+            <div class="total-calories">
+                <span id="total-calories" ondblclick="openTransactions()">0</span>
+                <span class="total-dropdown" ondblclick="openTransactions()">▼</span>
+            </div>
+        </div>
+        <div class="calorie-status">
+            <h3>What's Left</h3>
+            <div class="remaining-calories">
+                <span id="remaining-calories">0</span>
+            </div>
+        </div>
+        
+        <!-- Exercise and Water Intake Section -->
+        <div class="water-exercise">
+            <img src="images/water.png" alt="Water Droplet" class="water-icon" onclick="incrementWaterIntake()">
+            <p id="total-water-intake">500 ml</p>
+            <img src="images/exercise.png" alt="Heart with dumbbell" class="exercise-icon" onclick="incrementExerciseTime()">
+            <p id="total-exercise-time">30 mins</p>
+        </div>
+
+        <!-- Mood Section -->
+        <div class="mood-section">
+            <img src="images/sad.png" alt="Sad" class="mood-icon" onclick="handleMoodClick('Sad')">
+            <img src="images/neutral.png" alt="Neutral" class="mood-icon" onclick="handleMoodClick('Neutral')">
+            <img src="images/happy.png" alt="Happy" class="mood-icon" onclick="handleMoodClick('Happy')">
+        </div>
+
+        <!-- Settings and Graph Icons -->
+        <div class="footer-icons">
+            <img src="images/settings.png" alt="Settings" class="settings-icon" onclick="openSettings()">
+            <img src="images/graph.png" alt="Graph" class="graph-icon" onclick="openGraph()">
+        </div>
+        
+        <!-- Settings Modal -->
+        <div id="settings-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('settings-modal')">&times;</span>
+                <h3>Settings</h3>
+
+                <div class="settings-section">
+                    <h4>Water Increment (ml)</h4>
+                    <input type="text" id="water-increment-input" placeholder="Water increment">
+                    <p>256.5 ml = 8 oz</p>                    
+                    <!-- Water Goal -->
+                    <label for="water-goal-input">Daily Water Goal (ml):</label>
+                    <input type="number" id="water-goal-input" min="0" step="100">
+
+                    <h4>Exercise Increment (minutes)</h4>
+                    <input type="text" id="exercise-increment-input" placeholder="Exercise increment">
+                    <!-- Exercise Goal -->
+                    <label for="exercise-goal-input">Daily Exercise Goal (minutes):</label>
+                    <input type="number" id="exercise-goal-input" min="0" step="10">
+
+                </div>
+
+                <button onclick="saveSettings()">Save Settings</button>
+                <button onclick="clearFitnessDB()">Clear ALL Fitness Data</button>
+            </div>
+        </div>
+
+        <!-- Edit Transaction Modal -->
+        <div id="edit-transaction-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('edit-transaction-modal')">&times;</span>
+                <h3>Edit Transaction</h3>
+
+                <!-- Flex container to align Amount and Category on the same line -->
+                <div class="edit-transaction-row">
+                    <label for="edit-amount">Amount:</label>
+                    <input type="text" id="edit-amount" class="small-input" placeholder="Amount">
+
+                    <!-- Category dropdown with no label -->
+                    <select id="edit-category-dropdown">
+                        <!-- Dynamically populated in editTransaction() -->
+                    </select>
+                </div>
+                <button id="save-edit-btn">Save Changes</button>
+                <!-- <button onclick="saveTransactionEdits()">Save Changes</button> -->
+            </div>
+        </div>
+
+        <!-- Transaction Log Modal -->
+        <div id="transactions-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('transactions-modal')">&times;</span>
+                <h3>Transactions</h3>
+                <!-- Trash can icon for deleting selected transactions -->
+                <img src="images/trash-can.png" alt="Delete" class="trash-icon" onclick="deleteSelectedTransactions()">
+                <ul id="transaction-list"></ul>
+            </div>
+        </div>
+        
+        <!-- Graph Modal -->
+        <div id="graph-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeGraph()">&times;</span>
+                <h3>Fitness Progress</h3>
+
+                <!-- Current Month Graph -->
+                <h4>Current Month</h4>
+                <canvas id="current-month-chart" width="400" height="200"></canvas>
+
+                <!-- Past 3 Months Graph -->
+                <h4>Past 3 Months</h4>
+                <canvas id="past-3-months-chart" width="400" height="200"></canvas>
+
+                <!-- Year-to-Date Graph -->
+                <h4>Year to Date</h4>
+                <canvas id="ytd-chart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+    <!-- Chart/ Graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

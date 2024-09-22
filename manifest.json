@@ -1,0 +1,21 @@
+{
+  "name": "Fitness Tracker PWA",
+  "short_name": "FitTracker",
+  "description": "A fitness tracker app to monitor calorie intake, water consumption, exercise, and mood.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4CAF50",
+  "icons": [
+    {
+      "src": "images/fitness.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/fitness2.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

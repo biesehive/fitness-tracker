@@ -1,0 +1,330 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.app-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-bottom: 60px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Horizontally center */
+    justify-content: center; /* Vertically center */
+    position: relative;
+}
+
+/* Center the header content */
+.header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 1rem 1rem 1rem 0rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    white-space: nowrap; /* Prevent the label from wrapping */
+    flex-shrink: 0; /* Prevent the label from shrinking */
+}
+
+h3 {
+    font-size: 1.0rem;
+    margin: 10px 0;
+    color: #333;
+}
+
+p {
+    font-size: 1rem;
+    color: #666;
+}
+
+.balance {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #4caf50;
+    cursor: pointer;
+}
+
+/* Make sure other elements inside the container adapt to its size */
+.slider-container, .amount-container, .total-calories, .remaining-calories {
+    width: 100%; /* Ensure these elements stretch to fit the container */
+
+}
+
+/* Make the "Pay Up!" button take the full width */
+button#add-calories-button {
+    width: 80%;
+}
+
+.amount-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin-bottom: 10px;
+    gap: 10px; /* Adjust space between the dropdown and input */
+}
+
+.slider-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;  /* Ensure the slider and values take up the full container width */
+    margin-bottom: 10px;
+    margin-top:10px;
+}
+
+.slider-container span {
+    font-size: 14px;  /* Reduce font size of min/max values */
+    margin: 0 5px;
+}
+
+#slider {
+    flex-grow: 2;
+    margin: 0 10px 5px; /* Add spacing between the slider and min/max */
+    width: auto; 
+}
+
+#slider-amount {
+    flex-grow: 1;
+    padding: 5px;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100px;
+}
+
+input[type="range"] {
+    width: 100%;
+}
+
+/* Button */
+button {
+    background-color: #ff9800;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin: 1rem 1rem 1rem 1rem;
+}
+
+button:hover {
+    background-color: #f57c00;
+}
+
+/* Total Calories and Remaining Calories */
+/* Flex container for Total and Remaining Calories */
+.calorie-status {
+    display: flex;
+    justify-content: space-between; /* Align both sections on opposite sides */
+    align-items: center; /* Vertically center the values */
+    margin: 10px 0; /* Optional: add space above and below the row */
+}
+
+/* Ensure the label and value are in the same row */
+.calorie-status h3 {
+    /* margin: top right bottom left; */
+    margin: 1rem 1rem 0rem 0rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    flex-grow: 1; /* Allow the label to take up space */
+    
+    white-space: nowrap; /* Prevent the label from wrapping */
+    flex-shrink: 0; /* Prevent the label from shrinking */
+}
+
+.total-calories, .total-dropdown {
+    color: #e53935;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: left;
+    margin: 1rem 0rem 0rem 0rem;
+    cursor: pointer;
+}
+
+.remaining-calories {
+    color: #4caf50;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: left;
+    margin: 1rem 0rem 0rem 0rem;
+}
+
+/* Water and Exercise section */
+.water-exercise {
+    display: flex;
+    justify-content: space-between;
+}
+
+.water-icon, .exercise-icon {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+
+.water-exercise p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin: 1rem 1rem 0rem 0rem;
+}
+
+/* Mood section */
+.mood-section {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.mood-icon {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+
+.selected-mood {
+    border: 2px solid rgb(42, 203, 232);
+    transform: scale(1.1);
+    transition: transform 0.2s;
+}
+
+.disabled-mood {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Footer icons */
+.footer-icons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px; /* Add space between the content and icons */
+    width: 100%; /* Ensure icons take the full width of the container */
+    padding: 0 20px;
+}
+
+/* Ensure footer icons stay within the app container */
+.footer-icons img {
+    width: 40px; /* Adjust the size of the icons */
+    height: 40px;
+    cursor: pointer;
+}
+
+.settings-icon, .graph-icon {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+/* Modal styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9998; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 300px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+.modal .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.modal .close:hover,
+.modal .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.trash-icon {
+    width: 30px;
+    cursor: pointer;
+    float: right;
+    margin-right: 10px;
+    margin-top: -10px;
+}
+
+#edit-transaction-modal {
+    z-index: 9999; /* Ensure this modal is on top of the transaction modal */
+}
+
+/* Reduce the size of the amount input */
+.small-input {
+    width: 80px; /* Adjust width to make it smaller */
+    text-align: right;
+}
+
+/* Flexbox to align Amount and Category on the same line */
+.edit-transaction-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px; /* Add space between the amount and category */
+}
+
+#transactions-modal {
+    z-index: 9998; /* Transaction modal stays below the edit modal */
+}
+
+/* Settings form styles */
+.settings-section {
+    margin-bottom: 15px;
+}
+
+.settings-section h4 {
+    margin: 5px 0;
+}
+
+.settings-section input {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button.save-settings {
+    background-color: #4caf50;
+    padding: 10px 15px;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button.save-settings:hover {
+    background-color: #388e3c;
+}
