@@ -107,11 +107,38 @@ async function initApp() {
 
         // Attach mood event listeners
         attachMoodEventListeners();
+        // Ensure daily values reset if needed
+        await checkAndResetDailyValues();  
 
         // Remove old transactions
         await removeOldTransactions();
     } catch (error) {
         console.error('Error initializing app:', error);
+    }
+}
+
+// Check and reset daily amounts
+async function checkAndResetDailyValues() {
+    const today = formatDateForStorage(new Date());
+    
+    // Get the last updated date from IndexedDB
+    let lastUpdatedDateData = await getFromIndexedDB('fitnessData', 'lastUpdatedDate');
+    let lastUpdatedDate = lastUpdatedDateData ? lastUpdatedDateData.value : null;
+    
+    if (lastUpdatedDate !== today) {
+        // If the date has changed, reset daily totals
+        totalCalories = 0;
+        totalWater = 0;
+        totalExercise = 0;
+        document.getElementById('total-calories').innerText = totalCalories;
+        document.getElementById('total-water-intake').innerText = `${totalWater} ml`;
+        document.getElementById('total-exercise-time').innerText = `${totalExercise} mins`;
+        
+        // Save the new date to IndexedDB
+        await saveToIndexedDB('fitnessData', { key: 'lastUpdatedDate', value: today });
+        
+        // Optionally, you can clear today's transactions as well (calories, water, exercise)
+        // await clearTodayTransactions(); // This would require another function to remove today’s transactions
     }
 }
 
